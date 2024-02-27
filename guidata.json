@@ -1,0 +1,249 @@
+{
+    "dungeons": {
+        "x": 109,
+        "y": 76.05303955078125,
+        "dropDown": true,
+        "toggles": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+        "titles": [
+            "Easy Bonzo Staff",
+            "Floppa Route Start",
+            "Infiniboom Aura",
+            "Auto Sinseeker",
+            "Auto Wither Blade",
+            "InstaCrystal",
+            "Auto Door",
+            "Bonzo Mask in P3",
+            "Melody Message",
+            "Auto Walk to P3"
+        ],
+        "descriptions": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+        "settingdowns": [
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+        "settingtoggle": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+        "settinglen": [
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0
+        ],
+        "settingname": [
+            "None",
+            "None",
+            "Infiniboom Looking At",
+            "None",
+            "Only in Boss",
+            "Crystal Side",
+            "None",
+            "None",
+            "Change Melody Message",
+            "None"
+        ]
+    },
+    "render": {
+        "x": 326.5,
+        "y": 78.55526733398438,
+        "dropDown": true,
+        "toggles": [
+            false,
+            false,
+            false,
+            false
+        ],
+        "titles": [
+            "Readable Messages",
+            "Secret Esp",
+            "Key Esp",
+            "Gyro Radius"
+        ],
+        "descriptions": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+        "settingdowns": [
+            false,
+            false,
+            false,
+            false
+        ],
+        "settingtoggle": [
+            false,
+            false,
+            false,
+            false
+        ],
+        "settinglen": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "settingname": [
+            "None",
+            "None",
+            "None",
+            "None"
+        ]
+    },
+    "player": {
+        "x": 211,
+        "y": 77.55438232421875,
+        "dropDown": true,
+        "toggles": [
+            false,
+            false,
+            false
+        ],
+        "titles": [
+            "Etherwarp on Crouch",
+            "Armor Swapper",
+            "Hclip"
+        ],
+        "descriptions": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+        "settingdowns": [
+            false,
+            false,
+            false
+        ],
+        "settingtoggle": [
+            false,
+            false,
+            false
+        ],
+        "settinglen": [
+            0,
+            0
+        ],
+        "settingname": [
+            "None",
+            "None",
+            "Change Distance"
+        ]
+    },
+    "misc": {
+        "x": 431.5,
+        "y": 80.0567626953125,
+        "dropDown": true,
+        "toggles": [
+            false,
+            false,
+            false,
+            false
+        ],
+        "titles": [
+            "Auto Sell",
+            "Carpet Remover",
+            "Auto Orb",
+            "Auto Soulcry"
+        ],
+        "descriptions": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+        "settingdowns": [
+            false,
+            false,
+            false,
+            false
+        ],
+        "settingtoggle": [
+            false,
+            false,
+            false,
+            false
+        ],
+        "settinglen": [
+            1,
+            0,
+            1,
+            0
+        ],
+        "settingname": [
+            "Sell on Inv Full",
+            "None",
+            "From Inv",
+            "None"
+        ]
+    },
+    "descrip": {
+        "x": 5.5,
+        "y": 485.7795715332031
+    },
+    "melodymessage": "Melody on Me!",
+    "hcdistance": 9
+}
