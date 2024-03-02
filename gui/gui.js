@@ -12,104 +12,37 @@ const image = new Image(Logo)
 
 //saves data
 export const guidata = new PogObject("Matcha", {
-    'dungeons': {
+    'test': {
         'x': 6.5,
         'y': 5,
-        'dropDown': false,
-        'toggles': [false, false, false, false, false, false, false, false, false, false],
-        'titles': ['Easy Bonzo Staff', 'Floppa Route Start', 'Infiniboom Aura', 'Auto Sinseeker', 'Auto Wither Blade', 'InstaCrystal', 'Auto Door', 'Bonzo Mask in P3', 'Melody Message', 'Auto Walk to P3'],
-        'descriptions': [false, false, false, false, false, false, false, false, false, false],
-        'settingdowns': [false, false, false, false, false, false, false, false, false, false],
-        'settingtoggle': [false, false, false, false, false, false, false, false, false, false],
-        'settinglen': [0, 0, 1, 0, 1, 1, 0, 0, 1, 0],
-        'settingname': ['None', 'None', 'Infiniboom Looking At', 'None', 'Only in Boss', 'Crystal Side', 'None', 'None', 'Change Melody Message', 'None']
-    },
-
-    'render': {
-        'x': 140,
-        'y': 20,
-        'dropDown': true,
-        'toggles': [false, false, false, false],
-        'titles': ['Readable Messages', 'Secret Esp', 'Key Esp', 'Gyro Radius'],
-        'descriptions': [false, false, false, false],
-        'settingdowns': [false, false, false, false],
-        'settingtoggle': [false, false, false, false],
-        'settinglen': [0, 0, 0, 0],
-        'settingname': ['None', 'None', 'None', 'None']
-
-    },
-
-    'player': {
-        'x': 260,
-        'y': 20,
-        'dropDown': true,
-        'toggles': [false, false, false],
-        'titles': ['Etherwarp on Crouch', 'Armor Swapper', 'Hclip'],
-        'descriptions': [false, false, false],
-        'settingdowns': [false, false, false],
-        'settingtoggle': [false, false, false],
-        'settinglen': [0, 0],
-        'settingname': ['None', 'None', 'Change Distance']
-
-    },
-
-    'misc': {
-        'x': 380,
-        'y': 20,
-        'dropDown': true,
-        'toggles': [false, false, false, false],
-        'titles': ['Auto Sell', 'Carpet Remover', 'Auto Orb', 'Auto Soulcry'],
-        'descriptions': [false, false, false, false],
-        'settingdowns': [false, false, false, false],
-        'settingtoggle': [false, false, false, false],
-        'settinglen': [1, 0, 1, 0],
-        'settingname': ['Sell on Inv Full', 'None', 'From Inv', 'None']
-
+        'dropDown': [true],
+        'toggles': [false],
+        'titles': ['Attack Sounds'],
+        'descriptions': [false],
+        'settingdowns': [false],
+        'settingtoggle': [false],
+        'settinglen': [1],
+        'settingname': ['None']
     },
 
     'descrip': {
         'x': 380,
         'y': 190,
     },
-
-    'melodymessage': "Melody on Me!",
-
-    'hcdistance': 9
 }, "guidata.json")
 
 //descriptions
 const desc = [
     [
-        "Automatically Use Bonzo Staff Keybind can be Set in Settings",
-        "Start a Floppa Route by pressing a keybind Keybind can be Set in Settings",
-        "Left Click with any ShortBow or Witherblade to place infiboom or set a keybind in Settings",
-        "Uses Sinseeker then Etherwarps, Keybind can be Set in Settings",
-        "Automatically looks down and uses any Witherblade in hotbar",
-        "Instantly etherwarp to the crystal in F7 Boss",
-        "Automatically Clicks the witherdoor when in range and a key has been picked up",
-        "Equips Bonzo Mask on Start of P3 in F7 and unequips After Proced or End of P3",
-        "Sends a message when you open the Melody Terminal",
-        "Walks Down to P3 of F7, Requires InstaCrystal to be off"
     ],
 
     [
-        "Changes Message Colors from Grey to White",
-        "Renders a Esp for Chests and Essence in Dungeons",
-        "Displays a Esp for Wither and Blood Keys",
-        "Displays the Radius of the Gyrokinetic Wand"
     ],
 
     [
-        "Automatically Use Etherwarp when Crouching and Holding AOTV",
-        "Swaps Armor from the top left of your inventory",
-        "Set a keybind in settings or use /pahclip <dist>, working bypass"
     ],
 
     [
-        "Automatically Sells Items when in /trades menu",
-        "Removes all Carpets nearby, helps reduce lagbacks",
-        "Places any Orb on Slayer Boss Spawn, Optionally from Inv",
-        "Uses Soulcry ability while holding any katana or terminator"
     ],
 ]
 
@@ -120,8 +53,8 @@ register('command', () => {
 }).setName('gdata')
 
 let gui = new Gui()
-const tabs = [guidata.dungeons, guidata.render, guidata.player, guidata.misc]
-const tabnames = ['Dungeons', 'Render', 'Player', 'Misc']
+const tabs = [guidata.test]
+const tabnames = ['test']
 let tabWidth = 90
 let tabHeight = 18
 let toChange
@@ -219,11 +152,7 @@ const checkClick = (mx, my, b, tab) => {
     if (currentSetting != null) donw = 1
     toChange = Math.floor((my - (tab.y + tabHeight)) / tabHeight)
     if (b == 0 && toChange >= 0 && toChange <= tab.toggles.length - 1 + donw) {
-        if (toChange == 9 && guidata.dungeons.settingdowns[8]) {
-            Client.setCurrentChatMessage("/melodymessage ")
-        } else if (toChange == 3 && guidata.player.settingdowns[2]) {
-            Client.setCurrentChatMessage("/hcdistance ")
-        } else if (toChange == currentSetting && currentSetting != null) {
+        if (toChange == currentSetting && currentSetting != null) {
             tab.settingtoggle[toChange - 1] = !tab.settingtoggle[toChange - 1]
         } else if (toChange > currentSetting && currentSetting != null) {
                 toChange = toChange - 1
@@ -274,7 +203,7 @@ register('clicked', (x, y, b, isDown) => {
 
 register('renderOverlay', () => {
     if (!gui.isOpen()) return
-    image?.draw(Renderer.screen.getWidth()-(image.getTextureWidth()/2), Renderer.screen.getHeight()-(image.getTextureHeight()/0.93), 200, 200)
+    image?.draw(Renderer.screen.getWidth()-(image.getTextureWidth()/5), Renderer.screen.getHeight()-(image.getTextureHeight()/0.93), 100, 100)
     tabs.forEach((tab, index) => {
         drawRect(0.26, 0.384, 0.29, 1, tab.x, tab.y, tabHeight, tabWidth, 0).draw()
         drawTab(tab)

@@ -1,2 +1,2 @@
-// import "./features/attacksounds"
+import "./features/attacksounds"
 import "./gui/gui"

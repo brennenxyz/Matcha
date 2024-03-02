@@ -1,6 +1,6 @@
 import { gui } from "../gui/variables";
 
-const sound = new Sound({ source: "hit_ogg", volume: 1, attenuation: 0 })
+const sound = new Sound({ source: "hit.ogg", volume: 0.05, attenuation: 0 })
   
 function playSound(e = Entity) {
     if(!gui.attack_sound) return;
