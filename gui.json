@@ -1,0 +1,81 @@
+{
+    "Skyblock": {
+        "x": 94.5,
+        "y": 3.498565673828125,
+        "dropDown": [
+            true
+        ],
+        "toggles": [
+            false,
+            false,
+            false
+        ],
+        "titles": [
+            "Lowball Blocker",
+            "Book Combine",
+            "Zealot Counter"
+        ],
+        "descriptions": [
+            false,
+            false,
+            false
+        ],
+        "settingdowns": [
+            false,
+            false,
+            false
+        ],
+        "settingtoggle": [
+            false,
+            false,
+            false
+        ],
+        "settinglen": [
+            1
+        ],
+        "settingname": [
+            "test",
+            "",
+            ""
+        ]
+    },
+    "Player": {
+        "x": 1.5,
+        "y": 3.999053955078125,
+        "dropDown": [
+            true
+        ],
+        "toggles": [
+            false,
+            false
+        ],
+        "titles": [
+            "Attack Sounds",
+            "Stats Display"
+        ],
+        "descriptions": [
+            false,
+            false
+        ],
+        "settingdowns": [
+            false,
+            false
+        ],
+        "settingtoggle": [
+            false,
+            false
+        ],
+        "settinglen": [
+            1,
+            1
+        ],
+        "settingname": [
+            "test",
+            "None"
+        ]
+    },
+    "descrip": {
+        "x": 380,
+        "y": 190
+    }
+}

@@ -5,31 +5,44 @@ import * as Elementa from "../../Elementa";
 import { ConstantColorConstraint, RainbowColorConstraint } from "../../Elementa/index.js";
 import PogObject from "PogData";
 
-let prefix = "MATCHA | "
+const prefix = "§d[§5Matcha§d]§b"
 const File = Java.type("java.io.File")
 const Logo = new File("./config/ChatTriggers/modules/Matcha/gui/matcha.png")
 const image = new Image(Logo)
 
 //saves data
-export const guidata = new PogObject("Matcha", {
-    'test': {
+export const guistuff = new PogObject("Matcha", {
+    'Skyblock': {
+        'x': 100,
+        'y': 5,
+        'dropDown': [true],
+        'toggles': [false, false, false],
+        'titles': ['Lowball Blocker', 'Book Combine', 'Zealot Counter'],
+        'descriptions': [false, false, false],
+        'settingdowns': [false, false, false],
+        'settingtoggle': [false, false, false],
+        'settinglen': [1],
+        'settingname': ['test', '', '']
+    },
+
+    'Player': {
         'x': 6.5,
         'y': 5,
         'dropDown': [true],
-        'toggles': [false],
-        'titles': ['Attack Sounds'],
-        'descriptions': [false],
-        'settingdowns': [false],
-        'settingtoggle': [false],
-        'settinglen': [1],
-        'settingname': ['None']
+        'toggles': [false, false],
+        'titles': ['Attack Sounds', 'Stats Display'],
+        'descriptions': [false, false],
+        'settingdowns': [false, false],
+        'settingtoggle': [false, false],
+        'settinglen': [1, 1],
+        'settingname': ['test', 'None']
     },
 
     'descrip': {
         'x': 380,
         'y': 190,
     },
-}, "guidata.json")
+}, "gui.json")
 
 //descriptions
 const desc = [
@@ -48,13 +61,13 @@ const desc = [
 
 //open gui command
 register('command', () => {
-    guidata.save()
+    guistuff.save()
     ChatLib.chat(`${prefix} Saved Data!`)
 }).setName('gdata')
 
 let gui = new Gui()
-const tabs = [guidata.test]
-const tabnames = ['test']
+const tabs = [guistuff.Player, guistuff.Skyblock]
+const tabnames = ['Player', 'Skyblock']
 let tabWidth = 90
 let tabHeight = 18
 let toChange
@@ -101,12 +114,12 @@ function drawTab(tab) {
     let multi = 1
     for (let i = 1; i <= tab.toggles.length; i++) {
         if (tab.toggles[i - 1]) {
-            drawRectHover(0.196, 0.384, 0.353, 1, tab.x, tab.y + (multi * tabHeight), tabHeight, tabWidth, 0).draw()
+            drawRectHover(0.2, 0.2, 0.2, 1, tab.x, tab.y + (multi * tabHeight), tabHeight, tabWidth, 0).draw()
         } else {
             drawRectHover(0.1, 0.1, 0.1, 1, tab.x, tab.y + (multi * tabHeight), tabHeight, tabWidth, 0).draw()
         }
         drawString(tab.titles[i - 1], tab.x + 4, tab.y + (multi * tabHeight) + 5, 0.8).draw()
-        drawRect(0.26, 0.384, 0.29, 1, tab.x, tab.y + (multi * tabHeight), tabHeight, 3, 0).draw()
+        drawRect(0.1, 0.1, 0.1, 1, tab.x, tab.y + (multi * tabHeight), tabHeight, 3, 0).draw()
         if (multi <= tab.toggles.length) {
             multi++
         } else {
@@ -140,10 +153,10 @@ const checkDragged = (dx, dy, mx, my, tab) => {
 }
 
 const checkDescDrag = (dx, dy, mx, my) => {
-    if (mx < (guidata.descrip.x - 10) || mx > (guidata.descrip.x + 290) + 10) return
-    if (my < (guidata.descrip.y - 5) || my > (guidata.descrip.y + 5) + 5) return
-    guidata.descrip.x += dx
-    guidata.descrip.y += dy
+    if (mx < (guistuff.descrip.x - 10) || mx > (guistuff.descrip.x + 290) + 10) return
+    if (my < (guistuff.descrip.y - 5) || my > (guistuff.descrip.y + 5) + 5) return
+    guistuff.descrip.x += dx
+    guistuff.descrip.y += dy
 }
 
 const checkClick = (mx, my, b, tab) => {
@@ -159,7 +172,7 @@ const checkClick = (mx, my, b, tab) => {
                 tab.toggles[toChange] = !tab.toggles[toChange]
         } else {
             tab.toggles[toChange] = !tab.toggles[toChange]
-            //new Message(`${prefix} ${tab.titles[toChange]}: ${tab.toggles[toChange] ? "&aON" : "&cOFF"}`).setChatLineId(toChange).chat()
+            new Message(`${prefix} ${tab.titles[toChange]}: ${tab.toggles[toChange] ? "&aON" : "&cOFF"}`).setChatLineId(toChange).chat()
         }
         makePressSound()
     } else if (b == 1 && toChange == -1) {
@@ -192,13 +205,13 @@ register('dragged', (dx, dy, x, y, b) => {
     if (!gui.isOpen() || b != 0) return
     tabs.forEach(tab => checkDragged(dx, dy, mx, my, tab))
     checkDescDrag(dx, dy, mx, my)
-    guidata.save()
+    guistuff.save()
 })
 
 register('clicked', (x, y, b, isDown) => {
     if (!isDown || !gui.isOpen()) return
     tabs.forEach(tab => checkClick(x, y, b, tab))
-    guidata.save()
+    guistuff.save()
 })
 
 register('renderOverlay', () => {
@@ -222,32 +235,43 @@ register('renderOverlay', () => {
         tab.descriptions.forEach((descip, index) => {
             if (descip) {
                 if (index1 == 2 && index == 1) {
-                    drawRect(0.1, 0.1, 0.1, 1, guidata.descrip.x, guidata.descrip.y, 110, 290, 4).draw()
-                    drawRect(0, 0.5, 1, 1, guidata.descrip.x, guidata.descrip.y, 5, 290, 4).draw()
-                    drawRect(0, 0.5, 1, 1, guidata.descrip.x, guidata.descrip.y + 3, 5, 290, 0).draw()
-                    drawString('Description', guidata.descrip.x + 1, guidata.descrip.y + 1, 0.8).draw()
-                    drawString(desc[index1][index], guidata.descrip.x + 1, guidata.descrip.y + 15, 0.8).draw()
-                    drawString("To use Set a keybind in Settings", guidata.descrip.x + 1, guidata.descrip.y + 21, 0.8).draw()
+                    drawRect(0.1, 0.1, 0.1, 1, guistuff.descrip.x, guistuff.descrip.y, 110, 290, 4).draw()
+                    drawRect(0, 0.5, 1, 1, guistuff.descrip.x, guistuff.descrip.y, 5, 290, 4).draw()
+                    drawRect(0, 0.5, 1, 1, guistuff.descrip.x, guistuff.descrip.y + 3, 5, 290, 0).draw()
+                    drawString('Description', guistuff.descrip.x + 1, guistuff.descrip.y + 1, 0.8).draw()
+                    drawString(desc[index1][index], guistuff.descrip.x + 1, guistuff.descrip.y + 15, 0.8).draw()
+                    drawString("To use Set a keybind in Settings", guistuff.descrip.x + 1, guistuff.descrip.y + 21, 0.8).draw()
                 } else {
-                    drawRect(0.1, 0.1, 0.1, 1, guidata.descrip.x, guidata.descrip.y, 30, 290, 4).draw()
-                    drawRect(0, 0.5, 1, 1, guidata.descrip.x, guidata.descrip.y, 5, 290, 4).draw()
-                    drawRect(0, 0.5, 1, 1, guidata.descrip.x, guidata.descrip.y + 3, 5, 290, 0).draw()
-                    drawString('Description', guidata.descrip.x + 1, guidata.descrip.y + 1, 0.8).draw()
-                    drawString(desc[index1][index], guidata.descrip.x + 1, guidata.descrip.y + 15, 0.8).draw()
+                    drawRect(0.1, 0.1, 0.1, 1, guistuff.descrip.x, guistuff.descrip.y, 30, 290, 4).draw()
+                    drawRect(0, 0.5, 1, 1, guistuff.descrip.x, guistuff.descrip.y, 5, 290, 4).draw()
+                    drawRect(0, 0.5, 1, 1, guistuff.descrip.x, guistuff.descrip.y + 3, 5, 290, 0).draw()
+                    drawString('Description', guistuff.descrip.x + 1, guistuff.descrip.y + 1, 0.8).draw()
+                    drawString(desc[index1][index], guistuff.descrip.x + 1, guistuff.descrip.y + 15, 0.8).draw()
                 }
             }
         })
     })
 })
 
-register('guiClosed', () => {
-    tabs.forEach((ta, index1) => {
-        ta.descriptions.forEach((des, index) => {
-            ta.descriptions[index] = false
-        })
-    })
+register('command', () => {
+    gui.open()
+}).setName('matcha')
+
+register("renderOverlay", () => {
+    if(gui.isOpen()) {
+        let screenWidth = Renderer.screen.getWidth();
+        let screenHeight = Renderer.screen.getHeight();
+    
+    
+        let x = 0; 
+        let y = 0; 
+        let width = screenWidth; 
+        let height = screenHeight;
+        let color = Renderer.color(66, 66, 66, 210)
+    
+        Renderer.drawRect(color, x, y, width, height);
+        gui.open()
+    }
 })
 
-register('command', () => {
-gui.open()
-}).setName('putaddons').setAliases('put').setAliases('pa').setAliases('puttest')
+export { gui }
