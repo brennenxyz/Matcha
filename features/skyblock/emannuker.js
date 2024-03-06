@@ -1,3 +1,8 @@
+import { guistuff } from "../../gui/gui";
+import { leftClick, rightClick } from "../../stuff/functions";
+import { setInterval } from "../../../setTimeout"
+import ServerRotations from "../../stuff/serverside";
+
 const getAdjustment = (x, y, z) => {
     const x_dist = x - Player.getX();
     const y_dist = y - Player.getY();
@@ -10,64 +15,47 @@ const getAdjustment = (x, y, z) => {
     return [yaw, pitch];
 }
 
-function lookAt(targetYaw, targetPitch, duration = 100) {
-    let currentYaw = Player.getYaw();
-    let currentPitch = Player.getPitch();
-    expectedYaw = targetYaw;
-    expectedPitch = targetPitch;
-    isRotatedByScript = true
-
-    let startTime = new Date().getTime();
-    function easeOutQuad(t) {
-        t
-    }
-    function updateAngles() {
-        let currentTime = new Date().getTime();
-        let elapsedTime = currentTime - startTime;
-        if (elapsedTime >= duration) {
-            setAngles(targetYaw, targetPitch);
-            return;
-        }
-        let progress = elapsedTime / duration;
-        // Applying easing (easeOutQuad) to modify the progression curve
-        progress = easeOutQuad(progress);
-
-        let newYaw = currentYaw + (targetYaw - currentYaw) * progress;
-        let newPitch = currentPitch + (targetPitch - currentPitch) * progress;
-
-        setAngles(newYaw, newPitch);
-
-        setTimeout(updateAngles, 1); // Adjust this delay to control the smoothness
-    }
-
-    updateAngles();
-}
-
-function setAngles(yaw, pitch) {
-    if(!World.isLoaded()) return;
-    const player = Client.getMinecraft().field_71439_g
-    player.field_70177_z = yaw
-    player.field_70125_A = pitch
-}
-
-const C02 = Java.type("net.minecraft.network.play.client.C02PacketUseEntity")
-
 let attacking = false;
+let entitiesAttacked = []
 
 register("step", () => {
     World.getAllEntities().forEach(e => {
-        // if(!e.getName().toLowerCase().includes("[lv42] enderman")) return;
-        if(Player.asPlayerMP().distanceTo(e) > 3) return;
+        if(!guistuff.Skyblock.toggles[3]) return;
+        if(Client.isInGui()) return;
+        if(Client.isInChat()) return;
+        if(Client.isInTab()) return;
+
+        if(entitiesAttacked.includes(e.getUUID())) return;
+        if(e.getName().toLowerCase().includes("zealot")) return;
+        if(Player.asPlayerMP().distanceTo(e) > 6) return;
         if(!Player.asPlayerMP().canSeeEntity(e)) return;
-        if(e.getClassName() !== "EntityVillager") return;
-        const angles = getAdjustment(e.getX(), e.getY() - 0.5, e.getZ())
-        setAngles(angles[0], angles[1])
-        if(attacking) return;
-        attacking = true;
-        ChatLib.chat(`clicked`)
-        Client.sendPacket(new C02(e.getEntity(), C02.Action.ATTACK))
-        setTimeout(() => {
-            attacking = false;
-        }, 75 + (Math.random() * 10));
+        if(e.isDead()) return;
+        if(!e.getName()) return;
+        if(e.getName() == Player.getName()) return;
+        if(e.getClassName() == "EntityPlayerSP") return;
+        if(e.getClassName() == "EntityOtherPlayerMP") return;
+        if(e.getClassName() == "EntityEnderman") {
+            const py = Player.getYaw()
+            const pp = Player.getPitch()
+            const angles = getAdjustment(e.getX(), e.getY() - 0.5, e.getZ())
+            if(attacking) return;
+            attacking = true;
+            ServerRotations.set(angles[0], angles[1])
+            setTimeout(() => {
+                if(!guistuff.rightclickmode) leftClick();
+                else if(guistuff.rightclickmode) rightClick();
+                entitiesAttacked.push(e.getUUID())
+                setTimeout(() => {
+                    ServerRotations.resetRotations()
+                    setTimeout(() => {
+                        attacking = false;
+                    }, 65);
+                }, 65);
+            }, 65)
+        }
     })
 }).setFps(120)
+
+setInterval(() => {
+    entitiesAttacked = []
+}, 10000)

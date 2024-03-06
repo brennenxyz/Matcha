@@ -6,6 +6,7 @@ import "./features/player/playerstats"
 import "./features/skyblock/LowballBlocker"
 import "./features/skyblock/ZealotCounter"
 import "./features/skyblock/emannuker"
+import "./features/skyblock/zealotmacro"
 
 // gui
 import "./gui/gui"
@@ -17,3 +18,4 @@ proFeature("test")
 register("tick", () => {
     org.lwjgl.opengl.Display.setTitle("MatchaClient");
 })
+

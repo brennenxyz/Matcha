@@ -9,7 +9,7 @@
             false,
             false,
             false,
-            true
+            false
         ],
         "titles": [
             "Lowball Blocker",
@@ -27,25 +27,29 @@
             false,
             false,
             false,
-            false
+            true
         ],
         "settingtoggle": [
             false,
             false,
             false,
-            true
+            false
         ],
         "settinglen": [
-            1,
             0,
             0,
-            1
+            0,
+            3
         ],
         "settingname": [
-            "test",
             false,
             false,
-            "Right Click Mode"
+            false,
+            [
+                "Left Click",
+                "Right Click",
+                "Client Rotations (Safer)"
+            ]
         ]
     },
     "Player": {
@@ -84,8 +88,7 @@
         ]
     },
     "descrip": {
-        "x": 111.5,
-        "y": 97.9129638671875
-    },
-    "rightclickmode": true
+        "x": 380,
+        "y": 190
+    }
 }

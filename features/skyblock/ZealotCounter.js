@@ -35,6 +35,13 @@ register("EntityDeath", (e) => {
         ZealotCounter.total_counter = ZealotCounter.total_counter++
         ZealotCounter.save()
     }
+    if(e.getName().toLowerCase().includes("enderman")) {
+        if(Player.asPlayerMP().distanceTo(e) <= 6) {
+            ZealotCounter.counter = ZealotCounter.counter++
+            ZealotCounter.total_counter = ZealotCounter.total_counter++
+            ZealotCounter.save()
+        }
+    }
 })
 
 register("chat", (event) => {
@@ -60,4 +67,4 @@ function displayFunc() {
     Renderer.drawStringWithShadow(str2, Renderer.screen.getWidth() - (8*length1) - 5, 20)  
 }
 
-register("renderOverlay", displayFunc);
+register("renderOverlay", displayFunc)

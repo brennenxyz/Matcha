@@ -16,13 +16,13 @@ export const guistuff = new PogObject("Matcha", {
         'x': 100,
         'y': 5,
         'dropDown': [true],
-        'toggles': [false, false, false],
-        'titles': ['Lowball Blocker', 'Book Combine', 'Zealot Counter'],
-        'descriptions': [false, false, false],
-        'settingdowns': [false, false, false],
-        'settingtoggle': [false, false, false],
-        'settinglen': [1],
-        'settingname': ['test', '', '']
+        'toggles': [false, false, false, false],
+        'titles': ['Lowball Blocker', 'Book Combine', 'Zealot Counter', 'Zealot Nuker'],
+        'descriptions': [false, false, false, false],
+        'settingdowns': [false, false, false, false],
+        'settingtoggle': [false, false, false, false],
+        'settinglen': [1, 0, 0, 1],
+        'settingname': ["test", false, false, "Right Click Mode"]
     },
 
     'Player': {
@@ -34,14 +34,16 @@ export const guistuff = new PogObject("Matcha", {
         'descriptions': [false, false],
         'settingdowns': [false, false],
         'settingtoggle': [false, false],
-        'settinglen': [1, 1],
-        'settingname': ['test', 'None']
+        'settinglen': [0, 0],
+        'settingname': [false, false]
     },
 
     'descrip': {
         'x': 380,
         'y': 190,
     },
+
+    'rightclickmode': false,
 }, "gui.json")
 
 //descriptions
@@ -165,6 +167,16 @@ const checkClick = (mx, my, b, tab) => {
     if (currentSetting != null) donw = 1
     toChange = Math.floor((my - (tab.y + tabHeight)) / tabHeight)
     if (b == 0 && toChange >= 0 && toChange <= tab.toggles.length - 1 + donw) {
+        if (toChange == 4 && guistuff.Skyblock.settingdowns[3]) {
+            // Client.setCurrentChatMessage("/melodymessage ")
+            guistuff.rightclickmode = !guistuff.rightclickmode
+            guistuff.save()
+            if(guistuff.rightclickmode) {
+                new Message(`${prefix} ${tab.titles[3]}: Right Click Mode ${guistuff.rightclickmode ? "&aON" : "&cOFF"}`).setChatLineId(toChange).chat()
+            } else {
+                new Message(`${prefix} ${tab.titles[3]}: Right Click Mode OFF`).setChatLineId(toChange).chat()
+            }
+        }
         if (toChange == currentSetting && currentSetting != null) {
             tab.settingtoggle[toChange - 1] = !tab.settingtoggle[toChange - 1]
         } else if (toChange > currentSetting && currentSetting != null) {
@@ -258,6 +270,8 @@ register('command', () => {
 }).setName('matcha')
 
 register("renderOverlay", () => {
+    if(Client.isInChat()) return;
+    if(Client.isInGui()) return;
     if(gui.isOpen()) {
         let screenWidth = Renderer.screen.getWidth();
         let screenHeight = Renderer.screen.getHeight();
