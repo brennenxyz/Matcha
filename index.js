@@ -18,4 +18,3 @@ proFeature("test")
 register("tick", () => {
     org.lwjgl.opengl.Display.setTitle("MatchaClient");
 })
-
