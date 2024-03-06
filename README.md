@@ -5,4 +5,4 @@ features:
 
 
 credits:
-  Pathfinding (Modified) - https://github.com/Debuggingss/debugtone
+  - Pathfinding (Modified) - https://github.com/Debuggingss/debugtone
