@@ -9,8 +9,12 @@ export const data = {
     zealot_counter: guistuff.Skyblock.toggles[2]
 }
 
+
 export const emannuker = { 
-    toggle: guistuff.Skyblock.toggles[3],
-    rightclickmode: guistuff.rightclickmode,
-    leftclickmode: !guistuff.rightclickmode
+    toggle: guistuff.ZealotNuker.toggles[0],
+    range: guistuff.range,
+    esp: guistuff.ZealotNuker.toggles[2],
+    rightclickmode: guistuff.ZealotNuker.toggles[3],
+    leftclickmode: guistuff.ZealotNuker.toggles[4],
+    client_side: guistuff.ZealotNuker.toggles[5]
 }

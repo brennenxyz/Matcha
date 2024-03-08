@@ -1,6 +1,14 @@
 // COLOR: 68,98,74
 // COLOR IN JAVA FORM: 0.26, 0.384, 0.29
 
+/* 
+            if(guistuff.rightclickmode) {
+                new Message(`${prefix} ${tab.titles[3]}: Right Click Mode ${guistuff.rightclickmode ? "&aON" : "&cOFF"}`).setChatLineId(toChange).chat()
+            } else {
+                new Message(`${prefix} ${tab.titles[3]}: Right Click Mode OFF`).setChatLineId(toChange).chat()
+            }
+*/
+
 import * as Elementa from "../../Elementa";
 import { ConstantColorConstraint, RainbowColorConstraint } from "../../Elementa/index.js";
 import PogObject from "PogData";
@@ -12,19 +20,6 @@ const image = new Image(Logo)
 
 //saves data
 export const guistuff = new PogObject("Matcha", {
-    'Skyblock': {
-        'x': 100,
-        'y': 5,
-        'dropDown': [true],
-        'toggles': [false, false, false, false],
-        'titles': ['Lowball Blocker', 'Book Combine', 'Zealot Counter', 'Zealot Nuker'],
-        'descriptions': [false, false, false, false],
-        'settingdowns': [false, false, false, false],
-        'settingtoggle': [false, false, false, false],
-        'settinglen': [1, 0, 0, 1],
-        'settingname': ["test", false, false, "Right Click Mode"]
-    },
-
     'Player': {
         'x': 6.5,
         'y': 5,
@@ -38,13 +33,47 @@ export const guistuff = new PogObject("Matcha", {
         'settingname': [false, false]
     },
 
+    'Skyblock': {
+        'x': 106.5,
+        'y': 5,
+        'dropDown': [true],
+        'toggles': [false, false],
+        'titles': ['Lowball Blocker', 'Book Combine'],
+        'descriptions': [false, false],
+        'settingdowns': [false, false],
+        'settingtoggle': [false, false],
+        'settinglen': [0, 0],
+        'settingname': [false, false]
+    },
+
+    'ZealotNuker': {
+        'x': 206.5,
+        'y': 5,
+        'dropDown': [true],
+        'toggles': [false, false, false, false, false],
+        'titles': ['Toggle', 'Range', 'ESP', 'Right Click Mode', 'Left Click Mode', 'Client Side'],
+        'descriptions': [false, false, false, false, false, false],
+        'settingdowns': [false, false, false, false, false, false],
+        'settingtoggle': [false, false, false, false, false, false],
+        'settinglen': [false, false, false, false, false, false],
+        'settingname': [false, false, false, false, false, false]
+    },
+
     'descrip': {
         'x': 380,
         'y': 190,
     },
 
+    range: false,
+
     'rightclickmode': false,
 }, "gui.json")
+
+register("command", (rng) => {
+    if(!parseFloat(rng)) return ChatLib.chat(`${prefix} Invalid number!`);
+    else guistuff.range = parseFloat(rng)
+    ChatLib.chat(`${prefix} Zealot Range | ${parseFloat(rng)}`)
+}).setName("zealotrange")
 
 //descriptions
 const desc = [
@@ -68,8 +97,8 @@ register('command', () => {
 }).setName('gdata')
 
 let gui = new Gui()
-const tabs = [guistuff.Player, guistuff.Skyblock]
-const tabnames = ['Player', 'Skyblock']
+const tabs = [guistuff.Player, guistuff.Skyblock, guistuff.ZealotNuker]
+const tabnames = ['Player', 'Skyblock', 'Zealot Nuker']
 let tabWidth = 90
 let tabHeight = 18
 let toChange
@@ -167,22 +196,18 @@ const checkClick = (mx, my, b, tab) => {
     if (currentSetting != null) donw = 1
     toChange = Math.floor((my - (tab.y + tabHeight)) / tabHeight)
     if (b == 0 && toChange >= 0 && toChange <= tab.toggles.length - 1 + donw) {
-        if (toChange == 4 && guistuff.Skyblock.settingdowns[3]) {
-            // Client.setCurrentChatMessage("/melodymessage ")
-            guistuff.rightclickmode = !guistuff.rightclickmode
-            guistuff.save()
-            if(guistuff.rightclickmode) {
-                new Message(`${prefix} ${tab.titles[3]}: Right Click Mode ${guistuff.rightclickmode ? "&aON" : "&cOFF"}`).setChatLineId(toChange).chat()
-            } else {
-                new Message(`${prefix} ${tab.titles[3]}: Right Click Mode OFF`).setChatLineId(toChange).chat()
-            }
-        }
         if (toChange == currentSetting && currentSetting != null) {
             tab.settingtoggle[toChange - 1] = !tab.settingtoggle[toChange - 1]
         } else if (toChange > currentSetting && currentSetting != null) {
                 toChange = toChange - 1
                 tab.toggles[toChange] = !tab.toggles[toChange]
         } else {
+            if(tab.titles[toChange] == "Range") {
+                gui.close()
+                ChatLib.chat(`${prefix} Usage: /zealotrange 5`)
+                Client.setCurrentChatMessage("/zealotrange ")
+                return;
+            }
             tab.toggles[toChange] = !tab.toggles[toChange]
             new Message(`${prefix} ${tab.titles[toChange]}: ${tab.toggles[toChange] ? "&aON" : "&cOFF"}`).setChatLineId(toChange).chat()
         }
