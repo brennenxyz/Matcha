@@ -50,7 +50,7 @@ export const guistuff = new PogObject("Matcha", {
         'x': 206.5,
         'y': 5,
         'dropDown': [true],
-        'toggles': [false, false, false, false, false],
+        'toggles': [false, false, false, false, false, false],
         'titles': ['Toggle', 'Range', 'ESP', 'Right Click Mode', 'Left Click Mode', 'Client Side'],
         'descriptions': [false, false, false, false, false, false],
         'settingdowns': [false, false, false, false, false, false],
@@ -68,6 +68,7 @@ export const guistuff = new PogObject("Matcha", {
 
     'rightclickmode': false,
 }, "gui.json")
+guistuff.autosave(1)
 
 register("command", (rng) => {
     if(!parseFloat(rng)) return ChatLib.chat(`${prefix} Invalid number!`);

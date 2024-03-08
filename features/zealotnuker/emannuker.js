@@ -19,7 +19,6 @@ const getAdjustment = (x, y, z) => {
 
 let attacking = false;
 let entitiesAttacked = []
-let messagesent = false;
 
 register("renderWorld", () => {
     World.getAllEntities().forEach(e => {
@@ -79,4 +78,21 @@ register("renderWorld", () => {
 
 setInterval(() => {
     entitiesAttacked = []
-}, 10000)
+}, 1000)
+
+
+function getSlices(rad) {
+    2 * Math.PI() * rad
+}
+
+register("renderWorld", () => {
+    if(!emannuker.toggle) return;
+    if(!emannuker.esp) return;
+
+    let x = Player.getRenderX();
+    let y = Player.getRenderY();
+    let z = Player.getRenderZ();
+
+    RenderLib.drawDisk(x, y, z, 0, emannuker.range - 1, 25, 25, -90, 0, 0, 1, 0, 0, 0.34, true, true);
+
+})
