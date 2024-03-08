@@ -5,5 +5,5 @@ features:
   - Zealot Nuker
   - Zealot Macro (not implemented bcuz not done)
 
-credits:
+credits (i have permission from owners of all repo's here):
   - Pathfinding (Modified) - https://github.com/Debuggingss/debugtone
